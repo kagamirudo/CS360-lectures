@@ -24,7 +24,7 @@ prop_fib1 :: Bool
 prop_fib1 = fib 1 == 1
 
 prop_fibn :: Integer -> Bool
-prop_fibn n = fib n == fib (n-1) + fib (n-2)
+prop_fibn n = fib n == fib (n - 1) + fib (n - 2)
 
 spec :: Spec
 spec = do

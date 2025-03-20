@@ -12,7 +12,9 @@
 ;  (stream-nth 2 (stream 1 2 3)) => 3
 
 (define (stream-nth n s)
-  'not-implemented)
+  (if (= n 0)
+      (stream-first s)
+      (stream-nth (- n 1) (stream-rest s))))
 
 ; Create a new stream that is the result of applying the function f to the
 ; stream s.
@@ -21,7 +23,10 @@
 ;   (stream->list (stream-map (lambda (x) (+ x 1)) (stream 0 1 2 3 4 5))) => (1 2 3 4 5 6)
 
 (define (stream-map f s)
-  'not-implemented)
+  (if (stream-empty? s)
+      empty-stream
+      (stream-cons (f (stream-first s))
+                   (stream-map f (stream-rest s)))))
 
 ; Create a new stream containing only the element of s satisfying the predicate
 ; pred.
@@ -30,15 +35,23 @@
 ;   (stream->list (stream-filter (lambda (x) (odd? x)) (stream 0 1 2 3 4 5))) => (1 3 5)
 
 (define (stream-filter pred s)
-  'not-implemented)
+  (cond
+    [(stream-empty? s) empty-stream]
+    [(pred (stream-first s)) 
+     (stream-cons (stream-first s) 
+                  (stream-filter pred (stream-rest s)))]
+    [else (stream-filter pred (stream-rest s))]))
 
 ; Create a stream containing all numbers lo, lo+1, lo+2, ..., hi
 ;
 ; Examples:
 ;  (stream-nth 100 (stream-enumerate 1 1000)) => 101
 ;
+
 (define (stream-enumerate lo hi)
-  'not-implemented)
+  (if (> lo hi)
+      empty-stream
+      (stream-cons lo (stream-enumerate (+ lo 1) hi))))
 
 ; Create a stream containing all numbers n, n+1, n+2, ...
 ; Note: this is an infinite stream
@@ -47,4 +60,4 @@
 ;  (stream-nth 100 (stream-enumerate-from 100)) => 200
 
 (define (stream-enumerate-from n)
-  'not-implemented)
+  (stream-cons n (stream-enumerate-from (+ n 1))))

@@ -2,8 +2,8 @@
 (require test-engine/racket-tests)
 
 (define zero (lambda (f) (lambda (z) z)))
-(define one  (lambda (f) (lambda (z) (f z))))
-(define two  (lambda (f) (lambda (z) (f (f z)))))
+(define one (lambda (f) (lambda (z) (f z))))
+(define two (lambda (f) (lambda (z) (f (f z)))))
 
 (define (church->nat n)
   ((n add1) 0))
@@ -20,18 +20,17 @@
 (check-expect (church->nat one) 1)
 (check-expect (church->nat two) 2)
 
-(define succ
-  'undefined)
+(define (succ n)
+  (lambda (f) (lambda (z) ((n f) (f z)))))
 
 (check-expect (church->nat (succ (nat->church 5))) 6)
 
-(define add
-  'undefined)
+(define (add m n)
+  (lambda (f) (lambda (z) ((m f) ((n f) z)))))
 
 (check-expect (church->nat ((add (nat->church 5)) (nat->church 10))) 15)
 
-(define mult
-  'undefined)
+(define (mult m n)
+  (lambda (f) (lambda (z) ((m ((n f))) z))))
 
 (check-expect (church->nat ((mult (nat->church 5)) (nat->church 10))) 50)
-

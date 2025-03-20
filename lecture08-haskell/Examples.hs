@@ -8,7 +8,7 @@ module Examples where
 
 import Prelude hiding (map)
 
-import Test.QuickCheck
+import Test.QuickCheck ( quickCheck )
 
 -- Load this file into GHCi and type `isThisWorking` at the prompt. GHCi will
 -- tell you whether it's working!

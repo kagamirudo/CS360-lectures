@@ -1,7 +1,7 @@
-{-# OPTIONS_GHC -fwarn-tabs #-}
 -- Haskell is space sensitive
-
 {-# OPTIONS_GHC -Wall -Wno-type-defaults -fno-warn-missing-signatures #-}
+{-# OPTIONS_GHC -fwarn-tabs #-}
+
 -- Turn on warnings
 
 --
@@ -18,8 +18,9 @@
 -- Define a safe head function
 --
 
-data MaybeHead = NoHead
-               | JustHead Int
+data MaybeHead
+  = NoHead
+  | JustHead Int
 
 safeHeadInts = undefined
 
