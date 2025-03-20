@@ -27,7 +27,9 @@ mymap _ Nil = Nil
 mymap f (Cons x xs) = Cons (f x) (mymap f xs)
 
 prop_map_inc :: Bool
-prop_map_inc = mymap (\x -> x + 1) (Cons 1 (Cons 2 (Cons 3 (Cons 4 Nil)))) == (Cons 2 (Cons 3 (Cons 4 (Cons 5 Nil))))
+prop_map_inc =
+  mymap (+ 1) (Cons 1 (Cons 2 (Cons 3 (Cons 4 Nil))))
+    == Cons 2 (Cons 3 (Cons 4 (Cons 5 Nil)))
 
 myappend :: List a -> List a -> List a
 myappend Nil ys = ys
