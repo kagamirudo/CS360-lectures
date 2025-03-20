@@ -22,9 +22,13 @@ data MaybeHead
   = NoHead
   | JustHead Int
 
-safeHeadInts = undefined
+safeHeadInts :: [Int] -> MaybeHead
+safeHeadInts [] = NoHead
+safeHeadInts (x : _) = JustHead x
 
-safeHead = undefined
+safeHead :: (Enum a) => [a] -> MaybeHead
+safeHead [] = NoHead
+safeHead (x : _) = JustHead (fromEnum x) -- Assuming we want to convert to Int for demonstration
 
 --
 -- Type classes
@@ -32,4 +36,7 @@ safeHead = undefined
 
 data Foo = F Int | G Char
 
--- instance Eq Foo where
+instance Eq Foo where
+  (F x) == (F y) = x == y
+  (G x) == (G y) = x == y
+  _ == _ = False
